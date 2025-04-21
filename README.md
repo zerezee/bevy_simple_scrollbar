@@ -5,7 +5,7 @@
 
 A simple crate to make it easier to make scrollbars, until bevy provides its own implementation for scrollbars.
 
-In action:
+In action: 
 ![Vertical Scrollbar](vertical.gif)
 ![Horizontal Scrollbar](horizontal.gif)
 
