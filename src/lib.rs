@@ -149,22 +149,22 @@ pub mod prelude {
                 ScrollbarDirection::Horizontal => {
                     let thumb_size = (computed_scroll_area.size().x / (max_scroll + computed_scroll_area.size().x) * computed_scroll_area.inverse_scale_factor()).clamp(0.05, 1.0);
                     let Val::Percent(scrollbar_width) = &mut scrollbar_node.width else { warn!("Horizontal scrollbars must have a Percent width value, otherwise they won't work!"); return };
-                    *scrollbar_width = thumb_size*100.0;
+                    *scrollbar_width = (thumb_size*100.0).clamp(5.0, 100.0);
 
                     let scroll_percent = scroll_position.offset_x / max_scroll;
                     let scrollbar_width = computed_scrollbar.size().x;
                     let Val::Px(scrollbar_left) = &mut scrollbar_node.left else { warn!("Vertical scrollbars must have a Px top value, otherwise they won't work!"); return };
-                    *scrollbar_left = (computed_parent.size().x-scrollbar_width)*computed_parent.inverse_scale_factor() * scroll_percent;
+                    *scrollbar_left = (computed_parent.size().x-scrollbar_width)*computed_parent.inverse_scale_factor() * scroll_percent.clamp(0.0, 100.0);
                 }
                 ScrollbarDirection::Vertical => {
                     let thumb_size = (computed_scroll_area.size().y / (max_scroll + computed_scroll_area.size().y) * computed_scroll_area.inverse_scale_factor()).clamp(0.05, 1.0);
                     let Val::Percent(scrollbar_height) = &mut scrollbar_node.height else { warn!("Vertical scrollbars must have a Percent height value, otherwise they won't work!"); return };
-                    *scrollbar_height = thumb_size*100.0;
+                    *scrollbar_height = (thumb_size*100.0).clamp(5.0, 100.0);
 
                     let scroll_percent = scroll_position.offset_y / max_scroll;
                     let scrollbar_height = computed_scrollbar.size().y;
                     let Val::Px(scrollbar_top) = &mut scrollbar_node.top else { warn!("Vertical scrollbars must have a Px top value, otherwise they won't work!"); return };
-                    *scrollbar_top = (computed_parent.size().y-scrollbar_height)*computed_parent.inverse_scale_factor() * scroll_percent;
+                    *scrollbar_top = (computed_parent.size().y-scrollbar_height)*computed_parent.inverse_scale_factor() * scroll_percent.clamp(0.0, 100.0);
                 }
             }
         }
